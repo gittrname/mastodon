@@ -108,11 +108,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.hostsupdater.remove_on_suspend = false
   end
 
-  if config.vm.networks.any? { |type, options| type == :private_network }
-    config.vm.synced_folder ".", "/vagrant", type: "nfs", mount_options: ['rw', 'vers=3', 'tcp']
-  else
-    config.vm.synced_folder ".", "/vagrant"
-  end
+  #if config.vm.networks.any? { |type, options| type == :private_network }
+  #  config.vm.synced_folder ".", "/vagrant", type: "nfs", mount_options: ['rw', 'vers=3', 'tcp']
+  #else
+  #  config.vm.synced_folder ".", "/vagrant"
+  #end
+  config.vm.synced_folder ".", "/vagrant"
 
   # Otherwise, you can access the site at http://localhost:3000 and http://localhost:4000 , http://localhost:8080
   config.vm.network :forwarded_port, guest: 3000, host: 3000
