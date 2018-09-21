@@ -85,6 +85,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provider :virtualbox do |vb|
     vb.name = "mastodon"
     vb.customize ["modifyvm", :id, "--memory", "2048"]
+    # Increase the number of CPUs. Uncomment and adjust to
+    # increase performance
+    # vb.customize ["modifyvm", :id, "--cpus", "3"]
 
     # Disable VirtualBox DNS proxy to skip long-delay IPv6 resolutions.
     # https://github.com/mitchellh/vagrant/issues/1172
@@ -97,23 +100,25 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   end
 
-  config.vm.hostname = "mastodon.dev"
-
   # This uses the vagrant-hostsupdater plugin, and lets you
-  # access the development site at http://mastodon.dev.
+  # access the development site at http://mastodon.local.
+  # If you change it, also change it in .env.vagrant before provisioning
+  # the vagrant server to update the development build.
+  #
   # To install:
   #   $ vagrant plugin install vagrant-hostsupdater
+  config.vm.hostname = "mastodon.local"
+
   if defined?(VagrantPlugins::HostsUpdater)
     config.vm.network :private_network, ip: "192.168.42.42", nictype: "virtio"
     config.hostsupdater.remove_on_suspend = false
   end
 
-  #if config.vm.networks.any? { |type, options| type == :private_network }
-  #  config.vm.synced_folder ".", "/vagrant", type: "nfs", mount_options: ['rw', 'vers=3', 'tcp']
-  #else
-  #  config.vm.synced_folder ".", "/vagrant"
-  #end
-  config.vm.synced_folder ".", "/vagrant"
+  if config.vm.networks.any? { |type, options| type == :private_network }
+    config.vm.synced_folder ".", "/vagrant", type: "nfs", mount_options: ['rw', 'vers=3', 'tcp', 'actimeo=1']
+  else
+    config.vm.synced_folder ".", "/vagrant"
+  end
 
   # Otherwise, you can access the site at http://localhost:3000 and http://localhost:4000 , http://localhost:8080
   config.vm.network :forwarded_port, guest: 3000, host: 3000
