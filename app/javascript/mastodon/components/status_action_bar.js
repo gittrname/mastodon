@@ -150,8 +150,8 @@ class StatusActionBar extends ImmutablePureComponent {
 
     let menu = [];
     let reblogIcon = 'retweet';
-    let replyIcon;
-    let replyTitle;
+    let replyIcon = '';
+    let replyTitle = '';
 
     menu.push({ text: intl.formatMessage(messages.open), action: this.handleOpen });
 
