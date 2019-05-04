@@ -106,6 +106,6 @@ end
 
 module PrivateAddressCheck
   def self.private_address?(*)
-  false
+    false
   end
  end
