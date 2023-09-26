@@ -21,10 +21,7 @@ class FollowMigrationService < FollowService
 
   def request_follow!
     follow_request = @source_account.request_follow!(@target_account, **follow_options.merge(rate_limit: @options[:with_rate_limit], bypass_limit: @options[:bypass_limit]))
-<<<<<<< HEAD
-=======
     migrate_list_accounts!
->>>>>>> v4.2.0
 
     if @target_account.local?
       LocalNotificationWorker.perform_async(@target_account.id, follow_request.id, follow_request.class.name, 'follow_request')
@@ -36,13 +33,6 @@ class FollowMigrationService < FollowService
     follow_request
   end
 
-<<<<<<< HEAD
-  def direct_follow!
-    follow = super
-    UnfollowService.new.call(@source_account, @old_target_account, skip_unmerge: true)
-    follow
-  end
-=======
   def change_follow_options!
     migrate_list_accounts!
     super
@@ -69,5 +59,4 @@ class FollowMigrationService < FollowService
       nil
     end
   end
->>>>>>> v4.2.0
 end
