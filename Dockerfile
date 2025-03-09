@@ -151,6 +151,7 @@ apt-get update && \
     libpq-dev \
     libssl-dev \
     libtool \
+    libyaml-dev \
     meson \
     nasm \
     pkg-config \
