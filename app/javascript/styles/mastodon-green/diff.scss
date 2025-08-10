@@ -1,8 +1,24 @@
 // Notes!
 // Sass color functions, "darken" and "lighten" are automatically replaced.
+@use 'sass:color';
+@use '../mastodon/functions' as *;
+@use '../mastodon/variables' as *;
+
+a {
+  color: $dark-text-color;
+}
+a:hover {
+  color: $highlight-text-color;
+}
 
 .simple_form .button.button-tertiary {
   color: $highlight-text-color;
+
+  &:hover,
+  &:focus,
+  &:active {
+    color: $white;
+  }
 }
 
 .status-card__actions button,
@@ -77,12 +93,21 @@
     border-top: 0;
   }
 }
+.navigation-panel {
+  background-color: var(--surface-background-color);
+  border: 1px solid var(--background-border-color);
+  margin-top: 0px;
+}
+.navigation-panel__menu a:hover {
+  color: $highlight-text-color;
+}
 
 .search__input,
 .search__popout,
 .setting-text,
 .report-dialog-modal__textarea,
 .audio-player {
+  color: $dark-text-color;
   border: 1px solid var(--background-border-color);
 }
 
@@ -107,7 +132,7 @@
 }
 
 // Change the background colors of statuses
-.focusable:focus {
+.focusable:focus-visible {
   background: lighten($white, 4%);
 }
 
@@ -150,6 +175,11 @@
   border-top-color: lighten($ui-base-color, 4%);
 }
 
+.dialog-modal__content__preview {
+  background: #fff;
+  border-bottom: 1px solid var(--modal-border-color);
+}
+
 .reactions-bar__item:hover,
 .reactions-bar__item:focus,
 .reactions-bar__item:active {
@@ -157,8 +187,12 @@
 }
 
 .reactions-bar__item.active {
-  background-color: mix($white, $ui-highlight-color, 80%);
-  border-color: mix(lighten($ui-base-color, 8%), $ui-highlight-color, 80%);
+  background-color: color.mix($white, $ui-highlight-color, 80%);
+  border-color: color.mix(
+    lighten($ui-base-color, 8%),
+    $ui-highlight-color,
+    80%
+  );
 }
 
 .media-modal__overlay .picture-in-picture__footer {
@@ -247,7 +281,7 @@
 
 // Change the default colors used on some parts of the profile pages
 .activity-stream-tabs {
-  background: $account-background-color;
+  background: $classic-base-color;
   border-bottom-color: lighten($ui-base-color, 8%);
 }
 
@@ -289,7 +323,7 @@
   }
 
   .entry {
-    background: $account-background-color;
+    background: $classic-base-color;
 
     .detailed-status.light,
     .more.light,
@@ -344,7 +378,7 @@
 
   .recommended {
     border-color: $ui-highlight-color;
-    color: $ui-highlight-color;
+    color: $ui-secondary-color;
     background-color: rgba($ui-highlight-color, 0.1);
   }
 
@@ -371,19 +405,26 @@
 
   &,
   a {
-    color: $ui-highlight-color;
+    color: $lighter-text-color;
   }
 }
 
 .status__content,
 .reply-indicator__content {
   a {
-    color: $highlight-text-color;
+    color: $dark-text-color;
   }
 }
 
 .drawer__header {
   background: var(--surface-background-color);
+}
+
+.drawer__header a {
+  color: $dark-text-color;
+}
+.drawer__header a:hover {
+  color: $highlight-text-color;
 }
 
 .notification__filter-bar button.active::after,
@@ -465,6 +506,29 @@
   background: darken($ui-base-color, 10%);
 }
 
+.dropdown-button.warning {
+  border-color: #b3261e;
+  color: #b3261e;
+
+  &.active {
+    background-color: #f9dedc;
+  }
+}
+
+.search__popout__menu__item {
+  &:hover,
+  &:active,
+  &:focus,
+  &.active {
+    color: $white;
+
+    mark,
+    .icon-button {
+      color: $white;
+    }
+  }
+}
+
 .inline-follow-suggestions {
   background-color: rgba($ui-highlight-color, 0.1);
   border-bottom-color: rgba($ui-highlight-color, 0.3);
@@ -532,6 +596,13 @@ a.sparkline {
   }
 }
 
+.notification-group--annual-report {
+  .notification-group__icon,
+  .notification-group__main .link-button {
+    color: var(--indigo-3);
+  }
+}
+
 @supports not selector(::-webkit-scrollbar) {
   html {
     scrollbar-color: rgba($action-button-color, 0.25)
@@ -539,6 +610,8 @@ a.sparkline {
   }
 }
 
-::-webkit-scrollbar-thumb {
-  opacity: 0.25;
+.custom-scrollbars {
+  ::-webkit-scrollbar-thumb {
+    opacity: 0.25;
+  }
 }

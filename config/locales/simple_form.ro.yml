@@ -11,6 +11,7 @@ ro:
         note: 'Poți @menționa alte persoane sau #hashtag-uri.'
         show_collections: Oamenii vor putea să răsfoiască urmăriți și urmăritorii dvs. Oamenii pe care îi urmăriți vor vedea că îi urmăriți indiferent.
         unlocked: Alte persoane vă vor putea urmări fără a solicita aprobare. Debifați dacă doriți să revizuiți cererile și să alegeți dacă doriți să acceptați sau să respingeți noii urmăritori.
+        unlocked: Alte persoane vă vor putea urmări fără a solicita aprobare. Debifați dacă doriți să revizuiți cererile de urmărire și să alegeți dacă doriți să acceptați sau să respingeți noii urmăritori.
       account_alias:
         acct: Specificați numele de utilizator@domeniu al contului de la care doriți să treceți
       account_migration:
