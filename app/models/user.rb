@@ -515,6 +515,14 @@ class User < ApplicationRecord
     self.role = nil if role.present? && role.everyone?
   end
 
+  def sanitize_time_zone
+    self.time_zone = nil if time_zone.present? && ActiveSupport::TimeZone[time_zone].nil?
+  end
+
+  def sanitize_locale
+    self.locale = nil if locale.present? && I18n.available_locales.exclude?(locale.to_sym)
+  end
+
   def prepare_new_user!
     BootstrapTimelineWorker.perform_async(account_id)
     ActivityTracker.increment('activity:accounts:local')
